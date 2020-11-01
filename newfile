@@ -1,0 +1,16 @@
+- name: Verify there only running pods
+      steps:
+      - podAction:
+          matches:
+            - namespace: emojivoto
+          filters:
+            # pods not running
+            - property:
+                name: state
+                value: Running
+                negative: true
+            - randomSample:
+                size: 1
+          actions:
+            - checkPodCount:
+                count: 6
